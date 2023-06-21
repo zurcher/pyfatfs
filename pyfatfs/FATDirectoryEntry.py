@@ -376,11 +376,14 @@ class FATDirectoryEntry:
 
         clus = self.get_cluster()
         self.__dirs = self.__fs.parse_dir_entries_in_cluster_chain(clus)
+        for dir_entry in self.__dirs:
+            dir_entry._add_parent(self)
 
-    def _get_entries_raw(self):
+    def _get_entries_raw(self, populate: bool = True):
         """Get a full list of entries in current directory."""
         self._verify_is_directory()
-        self.__populate_dirs()
+        if populate:
+            self.__populate_dirs()
 
         return self.__dirs
 

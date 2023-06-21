@@ -591,7 +591,7 @@ class PyFat(object):
 
         # Gather all directory entries
         dir_entries = b''
-        for d in dir_entry._get_entries_raw():
+        for d in dir_entry._get_entries_raw(populate=False):
             dir_entries += bytes(d)
 
         # Write content
